@@ -1,4 +1,7 @@
-﻿namespace Domain.Entities
+﻿using Ardalis.GuardClauses;
+using Domain.Validators;
+
+namespace Domain.Entities
 {
     /// <summary>
     /// Лекарственный препарат
@@ -7,9 +10,13 @@
     {
         public Drug(string name, string manufacturer, string countryCodeId)
         {
-            Name = name;
-            Manufacturer = manufacturer;
-            CountryCodeId = countryCodeId;
+            Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+            Manufacturer = Guard.Against.NullOrWhiteSpace(manufacturer, nameof(manufacturer));
+            CountryCodeId = Guard.Against.NullOrWhiteSpace(countryCodeId, nameof(countryCodeId));
+
+            var validator = new DrugValidator();
+
+            validator.Validate(this);
         }
 
         /// <summary>
