@@ -36,7 +36,7 @@ public class DrugStoreValidator : AbstractValidator<DrugStore>
         RuleFor(ds=>ds.Address.PostalCode.ToString())
             .Length(5, 6).WithMessage(ValidationMessage.LengthMessage);
         
-        RuleFor(d => d.Address.ISO)
+        RuleFor(d => d.Address.Iso)
             .Matches(@"[A-Z]").WithMessage(ValidationMessage.AllMustBeBig)
             .Must(BeAValidCountryCode).WithMessage(ValidationMessage.BeAValidISPCode);
     }

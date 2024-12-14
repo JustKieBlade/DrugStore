@@ -17,7 +17,7 @@
             Street = street;
             House = house;
             PostalCode = postalCode;
-            ISO = country;
+            Iso = country;
         }
         
         /// <summary>
@@ -43,7 +43,7 @@
         /// <summary>
         /// Iso - код
         /// </summary>
-        public string ISO { get; private set; }
+        public string Iso { get; private set; }
 
         /// <summary>
         /// Возвращает строковое представление адреса.

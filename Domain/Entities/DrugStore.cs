@@ -1,6 +1,5 @@
 ﻿using Ardalis.GuardClauses;
 using Domain.ValueObjects;
-using FluentValidation;
 using Domain.Primitives;
 using Domain.Validators;
 
@@ -10,7 +9,7 @@ namespace Domain.Entities
     /// Аптека
     /// Системная валидация
     /// </summary>
-    public class DrugStore : BaseEntity
+    public sealed class DrugStore : BaseEntity<DrugStore>
     {
         public DrugStore(string drugNetwork, int number, Address address)
         {
