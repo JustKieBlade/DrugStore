@@ -1,27 +1,34 @@
-using System.Collections.ObjectModel;
+using Domain.Validators;
+using Domain.ValueObjects;
 
 
 namespace Domain.Entities;
 
 /// <summary>
-/// Профиль пользователя (Его не было в дз по сущностям, но было навигационное свойство
-/// на этот объект в FavoriteDrug, поэтому вот он примерно накинутый)
+/// BaseEntity поля были изменены 
 /// </summary>
-public class Profile : BaseEntity
+public sealed class Profile : BaseEntity<Profile>
 {
-    public Profile(string name)
+    public Profile(string externalId, Email? email)
     {
-        Name = name;
-        FavoriteDrugs = new Collection<FavoriteDrug>();
+        ExternalId = externalId;
+        Email = email;
+
+        ValidateEntity(new ProfileValidator());
     }
 
     /// <summary>
     /// Имя профиля
     /// </summary>
-    public string Name { get; private set; }
+    public string ExternalId { get; private set; }
+    
+    /// <summary>
+    /// Электронная почта.
+    /// </summary>
+    public Email? Email { get; private set; }
 
     /// <summary>
-    /// Избранные препараты
+    /// Навигационное свойство для связи с FavoriteDrug.
     /// </summary>
-    public Collection<FavoriteDrug> FavoriteDrugs { get; private set; }
+    public List<FavoriteDrug> FavoriteDrugs { get; private set; } = [];
 }

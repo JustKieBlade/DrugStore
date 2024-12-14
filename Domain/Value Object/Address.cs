@@ -11,11 +11,13 @@
         /// <param name="city">Город.</param>
         /// <param name="street">Улица.</param>
         /// <param name="house">Номер дома.</param>
-        public Address(string city, string street, string house)
+        public Address(string city, string street, string house, int postalCode, string country)
         {
             City = city;
             Street = street;
             House = house;
+            PostalCode = postalCode;
+            Iso = country;
         }
         
         /// <summary>
@@ -32,6 +34,16 @@
         /// Номер дома.
         /// </summary>
         public string House { get; private set; }
+        
+        /// <summary>
+        /// Почтовый индекс
+        /// </summary>
+        public int PostalCode { get; private set; }
+        
+        /// <summary>
+        /// Iso - код
+        /// </summary>
+        public string Iso { get; private set; }
 
         /// <summary>
         /// Возвращает строковое представление адреса.
