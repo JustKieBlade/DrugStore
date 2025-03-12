@@ -8,12 +8,13 @@ namespace Domain.Events;
 /// </summary>
 internal class DrugItemUpdatedEvent : IDomainEvent
 {
-    private readonly decimal? _cost;
-    private readonly double? _count;
-
     internal DrugItemUpdatedEvent(decimal? cost, double? count)
     {
         _cost = cost;
         _count = count;
     }
+    
+    private readonly decimal? _cost;
+    private readonly double? _count;
+
 }

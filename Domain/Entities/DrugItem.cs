@@ -21,6 +21,9 @@ namespace Domain.Entities
             var validator = new DrugItemValidator();
 
             validator.Validate(this);
+            
+            AddDomainEvent(new DrugItemAddedEvent(drugId, drugStoreId, cost, count));
+
         }
     
         /// <summary>

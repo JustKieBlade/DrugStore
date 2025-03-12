@@ -2,6 +2,7 @@
 using Domain.ValueObjects;
 using Domain.Primitives;
 using Domain.Validators;
+using Domain.Events;
 
 namespace Domain.Entities
 {
@@ -20,6 +21,8 @@ namespace Domain.Entities
             var validator = new DrugStoreValidator();
 
             validator.Validate(this);
+            
+            AddDomainEvent(new DrugStoreCreatedEvent(drugNetwork, number, address));
         }
 
         /// <summary>
@@ -36,5 +39,16 @@ namespace Domain.Entities
         /// Адрес аптеки.
         /// </summary>
         public Address Address { get; private set; }
+        
+        
+        #region Методы
+
+        public void UpdateDrugStore(string drugNetwork, int number, Address address)
+        {
+            ValidateEntity(new DrugStoreValidator());
+
+            AddDomainEvent(new DrugStoreUpdatedEvent(drugNetwork, number, address));
+        }
+        #endregion
     }
 }

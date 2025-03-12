@@ -7,12 +7,12 @@ namespace Domain.Events;
 /// </summary>
 internal class DrugItemRemovedEvent : IDomainEvent
 {
-    private readonly Guid? _drugId;
-    private readonly Guid? _drugStoreId;
-
     internal DrugItemRemovedEvent(Guid? drugId, Guid? drugStoreId)
     {
         _drugId = drugId;
         _drugStoreId = drugStoreId;
     }
+    
+    private readonly Guid? _drugId;
+    private readonly Guid? _drugStoreId;
 }

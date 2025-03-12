@@ -1,7 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using Domain.Primitives;
 using Domain.Validators;
-
+using Domain.Events;
 
 
 namespace Domain.Entities
@@ -12,7 +12,7 @@ namespace Domain.Entities
     /// </summary>
     public class Drug : BaseEntity<Drug>
     {
-        public Drug(string name, string manufacturer, string countryCodeId, Country country)
+        public Drug(string name, string manufacturer, string countryCodeId, Country country, Func<string, bool> countryExistsFunc)
         {
             Name = Guard.Against.NullOrWhiteSpace(name, nameof(name), ValidationMessage.NullOrWhiteSpaceMustNotBe);
             Manufacturer = Guard.Against.NullOrWhiteSpace(manufacturer, nameof(manufacturer), ValidationMessage.NullOrWhiteSpaceMustNotBe);
@@ -22,7 +22,7 @@ namespace Domain.Entities
             var validator = new DrugValidator();
 
             validator.Validate(this);
-            
+            AddDomainEvent(new DrugCreatedEvent(name, manufacturer, countryCodeId, country));
         }
 
         /// <summary>
@@ -49,5 +49,16 @@ namespace Domain.Entities
         /// Навигационное свойство для связи с DrugItem.
         /// </summary>
         public ICollection<DrugItem> DrugItems { get; private set; } = new List<DrugItem>();
+        
+        #region  Методы
+
+        public void UpdateDrug(string name, string manufacturer, string countrycodeid, Country country)
+        {
+            ValidateEntity(new DrugValidator());
+
+            AddDomainEvent(new DrugUpdatedEvent(name, manufacturer, countrycodeid, country));
+        }
+
+        #endregion
     }
 }
